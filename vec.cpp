@@ -1,5 +1,9 @@
 #include<iostream>
 #include<initializer_list>
+//#define NDEBUG 在<assert.h>前定义可以取消断言
+#include<assert.h>
+#include<vector>
+static_assert(sizeof(int)!=32,"inappropriate int size");
 using namespace std;
 
 class vec{
@@ -22,10 +26,25 @@ public:
 	}
 
 };
+class vec2{
+	vector<int> arr;
+public:
+	vec2(initializer_list<int> list) :arr(list){
+	}
+	int &operator[](int index){
+		//assert(index > 0 && index < arr.size());
+		return arr[index];
+	}
+};
 int main()
 {
-	vec v = { 1, 2, 3, 4, 5, 6 };
+	vec2 v = { 1, 2, 3, 4, 5, 6 };
+	cout << v[-2] << endl;
 	cout << v[2] << endl;
-	v[2] = 5;
+	cout << v[4] << endl;
+	cout << v[5] << endl;
+	cout << v[3] << endl;
+	cout << v[1] << endl;
 	cout << v[2] << endl;
+
 }
